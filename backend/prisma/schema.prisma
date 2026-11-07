@@ -1,0 +1,29 @@
+// Prisma schema for CityGeo backend
+// SQLite database
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  username      String    @unique
+  passwordHash  String
+  createdAt     DateTime  @default(now())
+  searches      Search[]
+}
+
+model Search {
+  id        Int      @id @default(autoincrement())
+  city      String
+  country   String?
+  lat       Float
+  lon       Float
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}

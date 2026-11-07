@@ -1,0 +1,1 @@
+{"name":"CityGeo Lookup - Codespace","image":"mcr.microsoft.com/devcontainers/node:20","forwardPorts":[4000,5173],"portsAttributes":{"4000":{"label":"Backend API","onAutoForward":"notify"},"5173":{"label":"Frontend Vite","onAutoForward":"notify"}},"customizations":{"vscode":{"extensions":["dbaeumer.vscode-eslint","esbenp.prettier-vscode","prisma.prisma"]}},"remoteUser":"node"}

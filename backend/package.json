@@ -1,0 +1,13 @@
+{  "name": "citygeo-backend",  "version": "1.0.0",  "description": "CityGeo Lookup Backend API",  "main": "src/index.js",  "scripts": {    "dev": "node --watch src/index.js",    "start": "node src/index.js"  },  "keywords": [],  "author": "",  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "@prisma/client": "^5.14.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "prisma": "^5.14.0"
+  }
+}
