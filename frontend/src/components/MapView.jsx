@@ -28,6 +28,7 @@ export default function MapView({ lat, lon, label }) {
     <MapContainer center={[lat, lon]} zoom={11} className="h-72 w-full rounded shadow">
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        referrerPolicy="strict-origin"
         url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <Marker position={[lat, lon]} icon={icon}>

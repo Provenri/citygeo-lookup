@@ -4,7 +4,7 @@ CityGeo Lookup is a React and Express application for authenticated city lookups
 
 ## Run in Codespaces
 
-The dev container installs both applications after creation. For a local checkout, install dependencies with `npm install --prefix backend` and `npm install --prefix frontend`.
+The dev container installs both applications after creation. The frontend requires Node.js 20.19 or later on Node 20, or Node.js 22.12 or later. For a local checkout, install dependencies with `npm install --prefix backend` and `npm install --prefix frontend`.
 
 1. Copy `backend/.env.example` to `backend/.env`.
 2. Set `JWT_SECRET` to a unique secret of at least 32 characters and `NOMINATIM_CONTACT` to a real contact email or URL. Keep the secret private.
