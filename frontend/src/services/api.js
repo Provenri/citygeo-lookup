@@ -43,3 +43,30 @@ export async function getHistory(token) {
   if (!res.ok) throw new Error(data.error || 'History fetch failed')
   return data
 }
+
+export async function suggestCities(q, token, signal) {
+  const res = await fetch(`${API_BASE}/geocode/suggest?q=${encodeURIComponent(q)}`, {
+    headers: { ...authHeaders(token) },
+    signal
+  })
+  const data = await res.json()
+  if (!res.ok) throw new Error(data.error || 'Suggestions failed')
+  return data
+}
+
+export async function selectCity(suggestion, token) {
+  const res = await fetch(`${API_BASE}/geocode/select`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...authHeaders(token) },
+    body: JSON.stringify({
+      name: suggestion.name,
+      country: suggestion.country,
+      label: suggestion.label,
+      lat: suggestion.lat,
+      lon: suggestion.lon
+    })
+  })
+  const data = await res.json()
+  if (!res.ok) throw new Error(data.error || 'Save failed')
+  return data
+}
