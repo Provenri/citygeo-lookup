@@ -35,3 +35,5 @@ Run the backend tests with `cd backend && npm test`. Build the frontend with `cd
 - JWT-protected city search
 - Search history scoped to the signed-in user
 - Nominatim request pacing and in-memory caching
+- City autocomplete with disambiguation (state/country), powered by Photon
+- Interactive OpenStreetMap map (Leaflet) for each result
