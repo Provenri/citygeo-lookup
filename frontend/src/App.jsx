@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, Link } from 'react-router-dom'
+import { Routes, Route, Navigate, Link, Outlet, useMatch } from 'react-router-dom'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import Search from './pages/Search.jsx'
@@ -21,11 +21,13 @@ function Nav() {
   )
 }
 
-function Layout({ children }) {
+function Layout() {
+  const isSearch = useMatch('/search') !== null
   return (
     <div>
       <Nav />
-      {children}
+      <div hidden={!isSearch}><Search visible={isSearch} /></div>
+      <Outlet />
     </div>
   )
 }
@@ -36,22 +38,10 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route
-          path="/search"
-          element={
-            <ProtectedRoute>
-              <Layout><Search /></Layout>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/history"
-          element={
-            <ProtectedRoute>
-              <Layout><History /></Layout>
-            </ProtectedRoute>
-          }
-        />
+        <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+          <Route path="/search" element={null} />
+          <Route path="/history" element={<History />} />
+        </Route>
         <Route path="/" element={<Navigate to="/search" />} />
       </Routes>
     </AuthProvider>

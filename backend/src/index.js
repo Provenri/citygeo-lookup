@@ -5,6 +5,7 @@ import { prisma } from './db.js';
 import authRouter from './routes/auth.js';
 import geocodeRouter from './routes/geocode.js';
 import historyRouter from './routes/history.js';
+import assistantRouter from './routes/assistant.js';
 import { errorHandler } from './middleware/error.js';
 
 dotenv.config();
@@ -18,11 +19,13 @@ if (!process.env.NOMINATIM_CONTACT) {
 
 const app = express();
 app.use(cors({ origin: process.env.FRONTEND_ORIGIN || 'http://localhost:5173' }));
+app.use('/api/assistant', express.json({ limit: '80kb' }));
 app.use(express.json({ limit: '10kb' }));
 
 app.use('/api/auth', authRouter);
 app.use('/api/geocode', geocodeRouter);
 app.use('/api/geocode/history', historyRouter);
+app.use('/api/assistant', assistantRouter);
 
 app.get('/health', async (req, res) => {
   try {

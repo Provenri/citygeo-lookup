@@ -54,6 +54,17 @@ export async function suggestCities(q, token, signal) {
   return data
 }
 
+export async function askAssistant(messages, token) {
+  const res = await fetch(`${API_BASE}/assistant`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...authHeaders(token) },
+    body: JSON.stringify({ messages })
+  })
+  const data = await res.json()
+  if (!res.ok) throw new Error(data.error || 'Assistant request failed')
+  return data
+}
+
 export async function selectCity(suggestion, token) {
   const res = await fetch(`${API_BASE}/geocode/select`, {
     method: 'POST',

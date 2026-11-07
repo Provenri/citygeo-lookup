@@ -15,15 +15,18 @@ const icon = L.icon({
   popupAnchor: [1, -34]
 })
 
-function Recenter({ lat, lon }) {
+function Recenter({ lat, lon, visible }) {
   const map = useMap()
   useEffect(() => {
     map.setView([lat, lon], 11)
   }, [map, lat, lon])
+  useEffect(() => {
+    if (visible) map.invalidateSize()
+  }, [map, visible])
   return null
 }
 
-export default function MapView({ lat, lon, label }) {
+export default function MapView({ lat, lon, label, visible = true }) {
   return (
     <MapContainer center={[lat, lon]} zoom={11} className="h-72 w-full rounded shadow">
       <TileLayer
@@ -34,7 +37,7 @@ export default function MapView({ lat, lon, label }) {
       <Marker position={[lat, lon]} icon={icon}>
         <Popup>{label}</Popup>
       </Marker>
-      <Recenter lat={lat} lon={lon} />
+      <Recenter lat={lat} lon={lon} visible={visible} />
     </MapContainer>
   )
 }
