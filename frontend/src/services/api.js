@@ -23,7 +23,7 @@ export async function register(username, password) {
   })
   const data = await res.json()
   if (!res.ok) throw new Error(data.error || 'Register failed')
-  return true
+  return data.token
 }
 
 export async function geocodeSearch(city, token) {

@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { prisma } from '../db.js';
 import { authenticateToken } from '../middleware/auth.js';
+import { geocodeCity } from '../services/geocoder.js';
 
 const router = Router();
 
@@ -13,26 +14,11 @@ router.get('/', authenticateToken, async (req, res, next) => {
     if (city.length < 2) {
       return res.status(400).json({ error: 'city name too short' });
     }
-
-    // Use Nominatim free provider
-    const url = new URL('https://nominatim.openstreetmap.org/search');
-    url.searchParams.set('format', 'json');
-    url.searchParams.set('q', city);
-    url.searchParams.set('limit', '1');
-    url.searchParams.set('addressdetails', '1');
-
-    const response = await fetch(url.toString(), {
-      headers: {
-        'User-Agent': 'CityGeoApp/1.0 (contact@example.com)',
-        'Accept-Language': 'en'
-      }
-    });
-
-    if (!response.ok) {
-      throw new Error(`Geocoder request failed with ${response.status}`);
+    if (city.length > 120) {
+      return res.status(400).json({ error: 'city name too long' });
     }
 
-    const results = await response.json();
+    const results = await geocodeCity(city);
     if (!results || results.length === 0) {
       return res.status(404).json({ error: 'City not found' });
     }

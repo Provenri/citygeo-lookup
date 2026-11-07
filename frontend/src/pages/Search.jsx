@@ -31,6 +31,7 @@ export default function SearchPage() {
         <input
           className="flex-1 border p-2 rounded"
           placeholder="Enter city name"
+          maxLength={120}
           value={city}
           onChange={e => setCity(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && search()}
@@ -45,6 +46,14 @@ export default function SearchPage() {
           <p><strong>City:</strong> {result.display_name}</p>
           <p><strong>Lat:</strong> {result.lat}, <strong>Lon:</strong> {result.lon}</p>
           <p><strong>Country:</strong> {result.country || '-'}</p>
+          <a
+            className="inline-block mt-3 text-blue-700 underline"
+            href={`https://www.openstreetmap.org/?mlat=${result.lat}&mlon=${result.lon}#map=12/${result.lat}/${result.lon}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            View on OpenStreetMap
+          </a>
         </div>
       )}
     </div>
